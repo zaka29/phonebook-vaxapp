@@ -18,8 +18,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-
 import './App.css';
+
+const availableFields = [
+  {name: 'name', label: 'First name'},
+  {name: 'lastName', label: 'Last name'},
+  {name: 'phoneNumber', label: 'Phone number'}
+];
 
 const useStyles = makeStyles({
   stack: {
@@ -125,11 +130,10 @@ function App() {
   }
 
   const validateFields = (fields: DialogFields): string[] => {
-    const required = ['name', 'lastName', 'phoneNumber'];
     let errors = [];
-    for (const field of required) {
-      if(!fields[field]) {
-        errors.push(field);
+    for (const field of availableFields) {
+      if(!fields[field.name]) {
+        errors.push(field.name);
       }
     }
     return errors;
@@ -239,42 +243,22 @@ function App() {
       >
         <DialogTitle>Add new contact</DialogTitle>
         <DialogContent>
-          <TextField
-            margin="normal"
-            error={errors.includes('name')}
-            name="name"
-            label="First name"
-            type="text"
-            fullWidth
-            variant="outlined"
-            size="small"
-            value={dialogFields['name'] || ''}
-            onChange={handleDialogFieldChange}
-          />
-          <TextField
-            margin="normal"
-            error={errors.includes('lastName')}
-            name="lastName"
-            label="Last name"
-            type="text"
-            fullWidth
-            variant="outlined"
-            size="small"
-            value={dialogFields['lastName'] || ''}
-            onChange={handleDialogFieldChange}
-          />
-          <TextField
-            margin="normal"
-            error={errors.includes('phoneNumber')}
-            name="phoneNumber"
-            label="Phone number"
-            type="text"
-            fullWidth
-            variant="outlined"
-            size="small"
-            value={dialogFields['phoneNumber'] || ''}
-            onChange={handleDialogFieldChange}
-          />
+          {availableFields.map(field => {
+            return (
+              <TextField
+                margin="normal"
+                error={errors.includes(field.name)}
+                name={field.name}
+                label={field.label}
+                type="text"
+                fullWidth
+                variant="outlined"
+                size="small"
+                value={dialogFields[field.name] || ''}
+                onChange={handleDialogFieldChange}
+              />
+            )
+          })}
         </DialogContent>
         <DialogActions>
           <Button onClick={toggleDialog}>Cancel</Button>
