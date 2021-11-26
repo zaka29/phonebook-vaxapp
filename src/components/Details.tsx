@@ -21,18 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-interface Contact {
-  name: string,
-  lastName: string,
-  phoneNumber: string,
-  avatar: string,
-}
-
-interface Props {
-  contact?: Contact
-}
-
-const ContactDetails: React.FC<Props> = () => {
+const ContactDetails: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const classes = useStyles();

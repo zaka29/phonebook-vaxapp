@@ -40,7 +40,7 @@ interface DialogFields {
 }
 
 const ContactsList: React.FC = () => {
-  const  classes = useStyles();
+  const classes = useStyles();
   const navigate = useNavigate();
   const dirty = useRef(false);
 
